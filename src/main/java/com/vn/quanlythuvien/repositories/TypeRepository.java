@@ -10,4 +10,5 @@ import java.util.List;
 public interface TypeRepository extends JpaRepository<Type, Integer> {
     Type getTypeById(int id);
     Type getTypeByName(String name);
+    List<Type> findAll();
 }

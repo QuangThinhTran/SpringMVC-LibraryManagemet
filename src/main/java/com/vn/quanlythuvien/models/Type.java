@@ -11,11 +11,19 @@ import java.util.Set;
 public class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, length = 255)
     private String name;
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
     private Set<Book> books;
+
+    @Override
+    public String toString() {
+        return "Type{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -7,6 +7,7 @@ import com.vn.quanlythuvien.repositories.BookRepository;
 import com.vn.quanlythuvien.repositories.OrderDetailRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.vn.quanlythuvien.repositories.OrderRepository;
 import com.vn.quanlythuvien.requests.order.OrderDetailRequest;
@@ -55,14 +56,14 @@ public class OrderDetailService implements IOrderDetailService {
     @Override
     public OrderDetail saveOrderDetail(OrderDetailRequest orderDetailRequest) {
 
-        Book book = bookRepository.findById(orderDetailRequest.getBookId()).orElse(null);
+        Optional<Book> book = bookRepository.findById(orderDetailRequest.getBookId());
         Order order = orderRepository.findById(orderDetailRequest.getOrderId()).orElse(null);
 
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setOrder(order);
-        orderDetail.setBook(book);
+//        orderDetail.setBook(book);
         orderDetail.setQuantity(orderDetailRequest.getQuantity());
-        orderDetail.setPrice(book.getPrice() * orderDetailRequest.getQuantity());
+//        orderDetail.setPrice(book.getPrice() * orderDetailRequest.getQuantity());
         return orderDetailRepository.save(orderDetail);
     }
 

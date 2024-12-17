@@ -12,16 +12,14 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(routes.TYPE)
-public class TypeController extends BaseController {
+public class TypeController {
 
     private final ITypeService typeService;
     private final TypeRepository typeRepository;
 
     @Autowired
     public TypeController(ITypeService typeService, TypeRepository typeRepository) {
-        super(typeService);
         this.typeRepository = typeRepository;
-        resource = routes.TYPE;
         this.typeService = typeService;
     }
 

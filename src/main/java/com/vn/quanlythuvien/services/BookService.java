@@ -8,6 +8,8 @@ import com.vn.quanlythuvien.requests.book.BookRequest;
 import com.vn.quanlythuvien.services.interfaces.IBookService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class BookService implements IBookService {
 
@@ -20,27 +22,28 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public void createBook(BookRequest request) {
-        setUpBook(new Book(), request);
+    public void createBook(BookRequest request, String pathFile) {
+        setUpBook(new Book(), request, pathFile);
     }
 
     @Override
     public Book getBookById(int id) {
-        return bookRepository.getBookById(id);
+        return bookRepository.findById(id);
     }
 
     @Override
-    public void updateBook(int id, BookRequest request) {
-        Book book = bookRepository.getBookById(id);
-        setUpBook(book, request);
+    public void updateBook(int id, BookRequest request, String pathFile) {
+        Book book = bookRepository.findById(id);
+        setUpBook(book, request, pathFile);
     }
 
     @Override
     public void deleteBook(int id) {
-        bookRepository.deleteById(id);
+        Book book = bookRepository.findById(id);
+        bookRepository.delete(book);
     }
 
-    private void setUpBook(Book book, BookRequest request) {
+    private void setUpBook(Book book, BookRequest request, String pathFile) {
         Type type = typeRepository.getTypeById(request.getTypeId());
 
         book.setTitle(request.getTitle());
@@ -48,7 +51,9 @@ public class BookService implements IBookService {
         book.setType(type);
         book.setPrice(request.getPrice());
         book.setDescription(request.getDescription());
-        book.setImage(request.getImage());
+        if (pathFile != null) {
+            book.setImage(pathFile);
+        }
         book.setQuantity(request.getQuantity());
         book.setYearOfPublication(request.getYearOfPublication());
         bookRepository.save(book);

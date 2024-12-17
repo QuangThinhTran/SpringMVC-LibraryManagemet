@@ -12,7 +12,7 @@ import java.util.Set;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, length = 255)
     private String title;
@@ -39,6 +39,18 @@ public class Book {
     @JoinColumn(name = "type_id", nullable = false)
     private Type type;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private Set<OrderDetail> orderDetails;
+        @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", description='" + description + '\'' +
+                ", yearOfPublication=" + yearOfPublication +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                ", type=" + (type != null ? type.getId() : null) +
+                '}';
+    }
 }

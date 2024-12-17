@@ -14,14 +14,12 @@ import java.util.List;
 
 @Controller
 @RequestMapping(routes.ORDER)
-public class OrderController extends BaseController {
+public class OrderController {
 
     private final OrderService orderService;
 
     @Autowired
     public OrderController(ITypeService typeService, OrderService orderService) {
-        super(typeService);
-        resource = routes.ORDER;
         this.orderService = orderService;
     }
 

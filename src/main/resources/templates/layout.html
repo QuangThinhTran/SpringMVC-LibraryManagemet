@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
-<head th:insert="header">
+<head th:insert="~{header}">
     <title> Quản lý thư viện</title>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -16,7 +16,7 @@
     </nav>
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="/UserManual" class="brand-link">
+        <a href="#" class="brand-link">
             <img th:src="@{/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">Quản lý thư viện</span>
@@ -43,13 +43,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/ManageBook" class="nav-link active">
+                                <a href="/book" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/AddBook" class="nav-link active">
+                                <a href="/book/create" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Thêm sách</p>
                                 </a>
@@ -63,13 +63,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/ManageBook" class="nav-link active">
+                                <a href="/type" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách thể loại</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/ManageCategory" class="nav-link active">
+                                <a href="/type/create" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Thêm thể loại</p>
                                 </a>
@@ -104,7 +104,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="/Logout" class="nav-link">
+                        <a href="/auth/logout" class="nav-link">
                             <i class="fas fa-circle nav-icon"></i>
                             <p>Đăng xuất</p>
                         </a>
@@ -118,5 +118,5 @@
     </main>
 </div>
 </body>
-<footer th:insert="footer"></footer>
+<footer th:insert="~{footer}"></footer>
 </html>
