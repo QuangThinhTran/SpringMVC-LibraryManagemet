@@ -32,11 +32,6 @@ public class AuthController {
             @RequestParam("email") String email,
             Model model
     ) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
-        userService.saveUser(user);
         model.addAttribute("message", "User registered successfully");
         return "index";
     }
@@ -58,7 +53,8 @@ public class AuthController {
     }
 
     @RequestMapping("/logout")
-    public String logout() {
+    public String logout(HttpSession session) {
+        session.invalidate();
         return "redirect:/auth/login";
     }
 }

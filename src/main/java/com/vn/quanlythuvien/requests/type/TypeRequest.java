@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class CreateTypeRequest {
-    @NotBlank(message = "Tên loại sách là bắt buộc")
+public class TypeRequest {
+    @NotBlank(message = "Tên loại sách l�? bắt buộc")
     private String name;
 }

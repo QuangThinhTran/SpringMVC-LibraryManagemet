@@ -35,6 +35,4 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
-
-    // Getters and Setters
 }
