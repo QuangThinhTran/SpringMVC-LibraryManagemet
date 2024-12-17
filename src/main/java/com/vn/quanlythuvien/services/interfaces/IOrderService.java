@@ -1,6 +1,7 @@
 package com.vn.quanlythuvien.services.interfaces;
 
 import com.vn.quanlythuvien.models.Order;
+import com.vn.quanlythuvien.requests.order.OrderRequest;
 
 import java.util.List;
 
@@ -8,6 +9,6 @@ public interface IOrderService {
     List<Order> getAllOrders();
     Order getOrderById(Integer id);
     List<Order> getOrdersByUserId(Integer userId);
-    Order saveOrder(Order order);
+    void saveOrder(OrderRequest orderRequest);
     void deleteOrder(Integer id);
 }

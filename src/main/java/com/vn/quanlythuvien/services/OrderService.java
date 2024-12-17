@@ -1,7 +1,10 @@
 package com.vn.quanlythuvien.services;
 
 import com.vn.quanlythuvien.models.Order;
+import com.vn.quanlythuvien.models.User;
 import com.vn.quanlythuvien.repositories.OrderRepository;
+import com.vn.quanlythuvien.repositories.UserRepository;
+import com.vn.quanlythuvien.requests.order.OrderRequest;
 import com.vn.quanlythuvien.services.interfaces.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +16,15 @@ public class OrderService implements IOrderService {
 
     private final OrderRepository orderRepository;
     private final OrderDetailService orderDetailService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, OrderDetailService orderDetailService) {
+    public OrderService(OrderRepository orderRepository, OrderDetailService orderDetailService,
+                        UserRepository userRepository
+    ) {
         this.orderRepository = orderRepository;
         this.orderDetailService = orderDetailService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -36,9 +43,9 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Order saveOrder(OrderRequest order) {
-        
-        return orderRepository.save(order);
+    public void saveOrder(OrderRequest orderRequest) {
+        Order order = new Order();
+        setUpOrder(order, orderRequest);
     }
 
     @Override
@@ -46,12 +53,13 @@ public class OrderService implements IOrderService {
         orderRepository.deleteById(id);
     }
 
-    private void setUpOrder(Order order, OrderRequest orderRequest) {W
-        order.setUserId(orderRequest.getUserId());
-        order.setTotal(orderRequest.getTotal());
-        order.setStatus(orderRequest.getStatus());
-        order.setRentalDate(orderRequest.getRentalDate());
-        order.setReturnDate(orderRequest.getReturnDate());
+    private void setUpOrder(Order order, OrderRequest orderRequest) {
+        User user = userRepository.findById(orderRequest.getUserId()).orElse(null);
+        order.setUser(user);
+//        order.setTotal(orderRequest.getTotal());
+//        order.setStatus(orderRequest.getStatus());
+//        order.setRentalDate(orderRequest.getRentalDate());
+//        order.setReturnDate(orderRequest.getReturnDate());
         order.setOrderDetails(null);
         orderRepository.save(order);
     }

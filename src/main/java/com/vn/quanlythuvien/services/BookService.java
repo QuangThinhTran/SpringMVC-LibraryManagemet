@@ -6,7 +6,9 @@ import com.vn.quanlythuvien.repositories.BookRepository;
 import com.vn.quanlythuvien.repositories.TypeRepository;
 import com.vn.quanlythuvien.requests.book.BookRequest;
 import com.vn.quanlythuvien.services.interfaces.IBookService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BookService implements IBookService {
 
     private final BookRepository bookRepository;
@@ -20,6 +22,11 @@ public class BookService implements IBookService {
     @Override
     public void createBook(BookRequest request) {
         setUpBook(new Book(), request);
+    }
+
+    @Override
+    public Book getBookById(int id) {
+        return bookRepository.getBookById(id);
     }
 
     @Override

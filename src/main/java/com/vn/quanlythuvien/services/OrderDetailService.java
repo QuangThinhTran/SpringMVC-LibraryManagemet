@@ -1,21 +1,35 @@
 package com.vn.quanlythuvien.services;
 
+import com.vn.quanlythuvien.models.Book;
 import com.vn.quanlythuvien.models.Order;
 import com.vn.quanlythuvien.models.OrderDetail;
+import com.vn.quanlythuvien.repositories.BookRepository;
 import com.vn.quanlythuvien.repositories.OrderDetailRepository;
 
 import java.util.List;
 
+import com.vn.quanlythuvien.repositories.OrderRepository;
+import com.vn.quanlythuvien.requests.order.OrderDetailRequest;
+import com.vn.quanlythuvien.services.interfaces.IOrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderDetailService implements OrderDetailService {
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
+public class OrderDetailService implements IOrderDetailService {
 
-    public OrderDetailService(OrderDetailRepository orderDetailRepository) {
+    private final OrderDetailRepository orderDetailRepository;
+    private final BookRepository bookRepository;
+    private final OrderRepository orderRepository;
+
+    @Autowired
+    public OrderDetailService(
+            OrderDetailRepository orderDetailRepository,
+            BookRepository bookRepository,
+            OrderRepository orderRepository
+    ) {
         this.orderDetailRepository = orderDetailRepository;
+        this.bookRepository = bookRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -39,13 +53,16 @@ public class OrderDetailService implements OrderDetailService {
     }
 
     @Override
-    public OrderDetail saveOrderDetail(Order order, OrderDetailRequest orderDetailRequest) {
+    public OrderDetail saveOrderDetail(OrderDetailRequest orderDetailRequest) {
+
+        Book book = bookRepository.findById(orderDetailRequest.getBookId()).orElse(null);
+        Order order = orderRepository.findById(orderDetailRequest.getOrderId()).orElse(null);
+
         OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setOrderId(order.getId());
-        orderDetail.setBookId(orderDetailRequest.getBookId());
+        orderDetail.setOrder(order);
+        orderDetail.setBook(book);
         orderDetail.setQuantity(orderDetailRequest.getQuantity());
-        orderDetail.setPrice(orderDetailRequest.getPrice());
-        orderDetail.setUserId(order.getUserId());
+        orderDetail.setPrice(book.getPrice() * orderDetailRequest.getQuantity());
         return orderDetailRepository.save(orderDetail);
     }
 

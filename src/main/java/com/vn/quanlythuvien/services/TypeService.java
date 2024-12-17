@@ -2,7 +2,9 @@ package com.vn.quanlythuvien.services;
 
 import com.vn.quanlythuvien.models.Type;
 import com.vn.quanlythuvien.repositories.TypeRepository;
+import com.vn.quanlythuvien.requests.type.TypeRequest;
 import com.vn.quanlythuvien.services.interfaces.ITypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,7 @@ public class TypeService implements ITypeService {
         this.typeRepository = typeRepository;
     }
 
+
     @Override
     public List<Type> getAll() {
         return typeRepository.findAll();
@@ -29,15 +32,13 @@ public class TypeService implements ITypeService {
 
     @Override
     public void updateType(int id, TypeRequest request) {
-        Type type = typeRepository.getTypeById(id);
+        Type type = typeRepository.findById(id).orElse(null);
         setUpType(type, request.getName());
     }
 
     @Override
-    public Type deleteType(int id) {
-        Type type = typeRepository.getTypeById(id);
+    public void deleteType(int id) {
         typeRepository.deleteById(id);
-        return type;
     }
 
     private void setUpType(Type type, String name) {

@@ -8,22 +8,22 @@ import java.util.Date;
 
 @Data
 public class BookRequest {
-    @NotBlank(message = "Tiêu đ�? l�? bắt buộc")
+    @NotBlank(message = "Tiêu đề là bắt buộc")
     private String title;
 
-    @NotBlank(message = "Tác giả l�? bắt buộc")
+    @NotBlank(message = "Tác giả là bắt buộc")
     private String author;
 
-    @NotNull(message = "Giá l�? bắt buộc")
+    @NotNull(message = "Giá là bắt buộc")
     private Double price;
 
-    @NotNull(message = "S�? lượng l�? bắt buộc")
+    @NotNull(message = "Số lượng là bắt buộc")
     private Integer quantity;
 
-    @NotBlank(message = "Năm xuất bản l�? bắt buộc")
+    @NotBlank(message = "Năm xuất bản là bắt buộc")
     private Date yearOfPublication;
 
-    @NotNull(message = "Loại sách l�? bắt buộc")
+    @NotNull(message = "Loại sách là bắt buộc")
     private Integer typeId;
 
     private String description;

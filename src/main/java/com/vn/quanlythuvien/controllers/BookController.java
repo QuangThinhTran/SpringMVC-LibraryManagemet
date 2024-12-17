@@ -1,9 +1,11 @@
 package com.vn.quanlythuvien.controllers;
 
 import com.vn.quanlythuvien.common.routes;
-import com.vn.quanlythuvien.requests.book.CreateBookRequest;
+import com.vn.quanlythuvien.models.Book;
+import com.vn.quanlythuvien.requests.book.BookRequest;
 import com.vn.quanlythuvien.services.interfaces.IBookService;
 import com.vn.quanlythuvien.services.interfaces.ITypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ public class BookController extends BaseController {
 
     private final IBookService bookService;
 
+    @Autowired
     public BookController(ITypeService typeService, IBookService bookService) {
         super(typeService);
         resource = routes.BOOK;
@@ -22,13 +25,13 @@ public class BookController extends BaseController {
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("book", new CreateBookRequest());
+        model.addAttribute("book", new BookRequest());
         return "book/create";
     }
 
     @PostMapping("/store")
     public String store(
-            @ModelAttribute("book") CreateBookRequest request,
+            @ModelAttribute("book") BookRequest request,
             Model model
     ) {
         this.bookService.createBook(request);
@@ -38,7 +41,7 @@ public class BookController extends BaseController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") int id, Model model) {
-        CreateBookRequest book = this.bookService.getBookById(id);
+        Book book = this.bookService.getBookById(id);
         model.addAttribute("book", book);
         return "book/edit";
     }
@@ -46,7 +49,7 @@ public class BookController extends BaseController {
     @PostMapping("/update/{id}")
     public String update(
             @PathVariable("id") int id,
-            @ModelAttribute("book") CreateBookRequest request,
+            @ModelAttribute("book") BookRequest request,
             Model model
     ) {
         this.bookService.updateBook(id, request);

@@ -1,5 +1,13 @@
-package com.vn.quanlythuvien.services.interfaces;
+package com.vn.quanlythuvien.services;
 
+import com.vn.quanlythuvien.models.User;
+import com.vn.quanlythuvien.repositories.UserRepository;
+import com.vn.quanlythuvien.requests.user.UserRequest;
+import com.vn.quanlythuvien.services.interfaces.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserService implements IUserService {
     private final UserRepository userRepository;
 
@@ -9,19 +17,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAllByRoleId(2);
-    }
-
-    @Override
-    public void createUser(CreateUserRequest request) {
+    public void createUser(UserRequest request) {
         setUpUser(new User(), request);
     }
 
     @Override
-    public void updateUser(int id, CreateUserRequest request) {
-        User user = userRepository.getUserById(id);
-        setUpUser(user, request.getName(), request.getAge());
+    public void updateUser(int id, UserRequest request) {
+        User user = userRepository.findById(id).orElse(null);
+        setUpUser(user, request);
     }
 
     @Override
@@ -29,15 +32,17 @@ public class UserService implements IUserService {
         userRepository.deleteById(id);
     }
 
+    @Override
     public User findByUsernameAndPassword(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
     }
-    private void setUpUser(User user, CreateUserRequest request) {
-        user.setName(name);
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setPhone(phone);
+
+    private void setUpUser(User user, UserRequest request) {
+        user.setUsername(request.getUsername());
+        user.setName(request.getName());
+        user.setPassword(request.getPassword());
+        user.setEmail(request.getEmail());
+        user.setPhone(request.getPhone());
         userRepository.save(user);
     }
 }

@@ -1,5 +1,7 @@
 package com.vn.quanlythuvien.requests.order;
 
+import lombok.Data;
+
 @Data
 public class OrderDetailRequest {
     private Integer orderId;
