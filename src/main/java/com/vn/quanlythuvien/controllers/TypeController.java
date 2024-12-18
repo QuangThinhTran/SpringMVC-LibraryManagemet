@@ -23,6 +23,14 @@ public class TypeController {
         this.typeService = typeService;
     }
 
+    @GetMapping()
+    public String index(Model model) {
+        String keyword = "";
+        model.addAttribute("types", this.typeRepository.findAll());
+        model.addAttribute("keyword", keyword);
+        return "type/index";
+    }
+
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("type", new TypeRequest());
@@ -35,29 +43,29 @@ public class TypeController {
             Model model
     ) {
         this.typeService.createType(request);
-        return "redirect:/types";
+        return "redirect:/type";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") int id, Model model) {
-        Type type = this.typeRepository.getTypeById(id);
+        Type type = this.typeRepository.findById(id);
         model.addAttribute("type", type);
         return "type/edit";
     }
 
-   @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public String update(
             @PathVariable("id") int id,
             @ModelAttribute("type") TypeRequest request,
             Model model
     ) {
         this.typeService.updateType(id, request);
-        return "redirect:/types";
+        return "redirect:/type";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id, Model model) {
         this.typeService.deleteType(id);
-        return "redirect:/types";
+        return "redirect:/type";
     }
 }

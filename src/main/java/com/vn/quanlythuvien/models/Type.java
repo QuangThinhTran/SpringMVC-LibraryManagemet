@@ -3,6 +3,7 @@ package com.vn.quanlythuvien.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -17,17 +18,9 @@ public class Type {
     private String name;
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
-    private Set<Book> books;
+    private List<Book> books;
 
     @Override
-    public String toString() {
-        return "Type{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
-    @Overide
     public String toString() {
         return "Type{" +
                 "id=" + id +

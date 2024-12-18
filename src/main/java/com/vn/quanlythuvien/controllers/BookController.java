@@ -11,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
 
+import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Optional;
 
 @Controller
 @RequestMapping(routes.BOOK)
@@ -39,7 +40,9 @@ public class BookController {
 
     @GetMapping()
     public String index(Model model) {
+        String keyword = "";
         model.addAttribute("books", this.bookRepository.findAll());
+        model.addAttribute("keyword", keyword);
         return "book/index";
     }
 
@@ -52,9 +55,14 @@ public class BookController {
 
     @PostMapping("/store")
     public String store(
-            @ModelAttribute("book") BookRequest request,
+            @ModelAttribute("book") @Valid BookRequest request,
+            BindingResult result,
             Model model
     ) throws IOException {
+        if (result.hasErrors()) {
+            return "book/create";
+        }
+
         String pathFile = util.uploadFile(request.getImage());
         request.setImage(null);
         this.bookService.createBook(request, pathFile);
@@ -65,32 +73,40 @@ public class BookController {
     public String showEditForm(@PathVariable("id") int id, Model model) {
         Book book = this.bookService.getBookById(id);
         model.addAttribute("book", book);
+        model.addAttribute("types", this.typeRepository.findAll());
         return "book/edit";
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public String update(
             @PathVariable("id") int id,
-            @ModelAttribute("book") BookRequest request,
+            @Valid @ModelAttribute("book") BookRequest request,
+            BindingResult result,
             Model model
     ) throws IOException {
+        if (result.hasErrors()) {
+            return "book/edit";
+        }
+
         String pathFile = util.uploadFile(request.getImage());
         request.setImage(null);
         this.bookService.updateBook(id, request, pathFile);
-        return "redirect:/books";
+        return "redirect:/book";
     }
 
     @PostMapping("/delete/{id}")
-    public String delete(@PathVariable("id") int id, Model model) {
+    public String delete(@PathVariable("id") int id) {
         this.bookService.deleteBook(id);
         return "redirect:/book";
     }
 
     @GetMapping("/search")
     public String search(
-            @RequestParam("keyword", required = false) String keyword
-            Model model) {
-        model.addAttribute("books", this.bookService.search(keyword));
-        return "book/index";
+            @RequestParam(value = "keyword", required = false) String keyword,
+            Model model
+    ) {
+        model.addAttribute("books", this.bookService.searchBook(keyword));
+        model.addAttribute("keyword", keyword);
+        return "book/search";
     }
 }

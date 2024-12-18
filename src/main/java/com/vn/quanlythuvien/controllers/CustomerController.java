@@ -1,5 +1,15 @@
 package com.vn.quanlythuvien.controllers;
 
+import com.vn.quanlythuvien.common.routes;
+import com.vn.quanlythuvien.models.User;
+import com.vn.quanlythuvien.repositories.UserRepository;
+import com.vn.quanlythuvien.requests.user.CustomerRequest;
+import com.vn.quanlythuvien.services.interfaces.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 @Controller
 @RequestMapping(routes.CUSTOMER)
 public class CustomerController {
@@ -18,13 +28,15 @@ public class CustomerController {
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("customers", this.userRepository.findAll());
+        String keyword = "";
+        model.addAttribute("customers", this.userService.getUserByRole("user"));
+        model.addAttribute("keyword", keyword);
         return "customer/index";
     }
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("customer", new UserRequest());
+        model.addAttribute("customer", new CustomerRequest());
         return "customer/create";
     }
 
@@ -39,20 +51,17 @@ public class CustomerController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(
-            @PathVariable("id") Long id,
+            @PathVariable("id") int id,
             Model model
     ) {
-        Optional<Customer> customer = this.userRepository.findById(id);
-        if (customer.isPresent()) {
-            model.addAttribute("customer", new CustomerRequest(customer.get()));
-            return "customer/edit";
-        }
-        return "redirect:" + routes.CUSTOMER;
+        User customer = this.userRepository.findById(id);
+        model.addAttribute("customer", customer);
+        return "customer/edit";
     }
 
     @PostMapping("/update/{id}")
     public String update(
-            @PathVariable("id") Long id,
+            @PathVariable("id") int id,
             @ModelAttribute("customer") CustomerRequest request,
             Model model
     ) {
@@ -62,18 +71,17 @@ public class CustomerController {
 
     @GetMapping("/search")
     public String search(
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "phone", required = false) String phone,
+            @RequestParam(value = "keyword", required = false) String keyword,
             Model model
     ) {
-        model.addAttribute("customers", this.userService.searchUser(name, email, phone));
-        return "customer/index";
+        model.addAttribute("customers", this.userService.searchUser(keyword));
+        model.addAttribute("keyword", keyword);
+        return "customer/search";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String delete(
-            @PathVariable("id") Long id,
+            @PathVariable("id") int id,
             Model model
     ) {
         this.userService.deleteUser(id);

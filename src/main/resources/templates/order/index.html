@@ -1,0 +1,51 @@
+<body layout:decorate="~{layout.html}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<main class="content-wrapper" layout:fragment="content">
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-header" style="margin-left: -20px; margin-top: -40px;">
+                                <input type="button" value="Thuê sách" class="btn btn-primary"
+                                       onclick="location.href='/order/create'">
+                            </div>
+                            <table class="table table-bordered table-hover" id="example2">
+                                <thead>
+                                <tr>
+                                    <th style="width: 10px">STT</th>
+                                    <th style="width: 318px;">Tên khách hàng</th>
+                                    <th>Ngày thuê</th>
+                                    <th>Ngày trả</th>
+                                    <th>Số tiền</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${orders}">
+                                    <td th:text="${order.id}"></td>
+                                    <td th:text="${order.user.name}"></td>
+                                    <td th:text="${order.rentalDate}"></td>
+                                    <td th:text="${order.returnDate}"></td>
+                                    <td th:text="${order.price}"></td>
+                                    <td th:if="${order.returnDate != null and order.returnDate <= T(java.time.LocalDate).now()}"
+                                        th:text="'Đã trả'"></td>
+                                    <td th:unless="${order.returnDate != null and order.returnDate <= T(java.time.LocalDate).now()}"
+                                        th:text="'Chưa trả'"></td>
+                                    <td style="text-align: center;">
+                                        <a th:href="@{/order/detail/{id}(id=${order.id})}" class="btn btn-sm btn-info">Chi
+                                            tiết</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer th:insert="~{footer}"></footer>
+</body>

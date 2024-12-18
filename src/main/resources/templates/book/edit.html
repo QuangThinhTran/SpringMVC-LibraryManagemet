@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" lang="en"
+      layout:decorate="~{layout.html}">
 <head th:insert="~{header}">
-    <title> Thêm sách</title>
+    <title>Chỉnh sửa sách</title>
 </head>
-<body layout:decorate="~{layout.html}">
+<body>
 <main class="content-wrapper" layout:fragment="content">
     <div class="content-wrapper">
         <div class="content-header">
@@ -22,18 +23,19 @@
                     <div class="col-md-6">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Thêm sách vào thư viện</h3>
+                                <h3 class="card-title">Chỉnh sửa sách</h3>
                             </div>
                             <div class="row justify-content-center" style="margin-top: 15px; margin-bottom: -15px;">
                                 <div style="color: red;">${errorString}</div>
                             </div>
-                            <form role="form" method="post" action="/book/update/${book.id}"
+                            <form role="form" method="post" th:action="'/book/update/' + ${book.id}"
                                   enctype="multipart/form-data" th:object="${book}">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Nhập tên sách</label>
                                         <input type="text" class="form-control" id="name"
                                                placeholder="Nhập tên sách" th:field="*{title}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Thể loại</label>
@@ -44,26 +46,31 @@
                                                 <option th:value="${type.id}" th:text="${type.name}"></option>
                                             </th:block>
                                         </select>
+                                        <div style="color: red;" th:if="${#fields.hasErrors('typeId')}" th:errors="*{typeId}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Nhập tên tác giả</label>
                                         <input type="text" class="form-control" id="author"
                                                placeholder="Nhập tên tác giả" th:field="*{author}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Nhập số lượng</label>
                                         <input type="number" class="form-control" id="quantity"
                                                placeholder="Nhập số lượng" th:field="*{quantity}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Nhập giá tiền</label>
                                         <input type="number" class="form-control" id="price" placeholder="Nhập giá tiền"
                                                th:field="*{price}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Năm xuất bản</label>
                                         <input type="date" class="form-control" id="datetime"
                                                th:field="*{yearOfPublication}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('yearOfPublication')}" th:errors="*{yearOfPublication}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Thêm ảnh bìa</label>

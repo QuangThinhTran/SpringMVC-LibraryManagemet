@@ -11,4 +11,5 @@ public interface IOrderService {
     List<Order> getOrdersByUserId(Integer userId);
     void saveOrder(OrderRequest orderRequest);
     void deleteOrder(Integer id);
+    List<Order> getAllOrdersDesc();
 }

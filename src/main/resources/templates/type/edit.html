@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" lang="en"
+      layout:decorate="~{layout.html}">
 <head th:insert="~{header}">
     <title>Chỉnh sửa thể loại</title>
 </head>
-<body layout:decorate="~{layout.html}">
+<body>
 <main class="content-wrapper" layout:fragment="content">
     <div class="content-wrapper">
         <div class="content-header">
@@ -27,7 +28,7 @@
                             <div class="row justify-content-center" style="margin-top: 15px; margin-bottom: -15px;">
                                 <div style="color: red;">${errorString}</div>
                             </div>
-                            <form role="form" method="post" action="/type/edit/${type.id}"
+                            <form role="form" method="post" th:action="'/type/update/' + ${type.id}"
                                   enctype="multipart/form-data" th:object="${type}">
                                 <div class="card-body">
                                     <div class="form-group">

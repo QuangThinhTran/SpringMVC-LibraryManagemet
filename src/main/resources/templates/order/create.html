@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" lang="en"
       layout:decorate="~{layout.html}">
 <head th:insert="~{header}">
-    <title>Thêm khách hàng</title>
+    <title>Thêm sách</title>
 </head>
 <body>
 <main class="content-wrapper" layout:fragment="content">
@@ -23,32 +23,53 @@
                     <div class="col-md-6">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Thêm khách hàng vào thư viện</h3>
+                                <h3 class="card-title">Thuê sách</h3>
                             </div>
                             <div class="row justify-content-center" style="margin-top: 15px; margin-bottom: -15px;">
                                 <div style="color: red;">${errorString}</div>
                             </div>
-                            <form role="form" method="post" action="/customer/store"
-                                  enctype="multipart/form-data" th:object="${customer}">
+                            <form role="form" method="post" action="/order/store"
+                                  enctype="multipart/form-data" th:object="${order}">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label>Nhập tên khách hàng</label>
-                                        <input type="text" class="form-control" id="name"
-                                               placeholder="Nhập tên khách hàng" th:field="*{name}">
+                                        <label>Sách</label>
+                                        <label for="book"></label>
+                                        <select name="book" id="book" class="form-control" th:field="*{bookId}"
+                                                required>
+                                            <th:block th:each="book : ${books}">
+                                                <option th:value="${book.id}" th:text="${book.title}"></option>
+                                            </th:block>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Nhập số điện thoại</label>
-                                        <input type="text" class="form-control" id="phone"
-                                               placeholder="Nhập số điện thoại" th:field="*{phone}">
+                                        <label>Khách hàng</label>
+                                        <label for="customer"></label>
+                                        <select name="customer" id="customer" class="form-control"
+                                                th:field="*{customerId}"
+                                                required>
+                                            <th:block th:each="customer : ${customers}">
+                                                <option th:value="${customer.id}" th:text="${customer.name}"></option>
+                                            </th:block>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Nhập email</label>
-                                        <input type="text" class="form-control" id="email"
-                                               placeholder="Nhập email" th:field="*{email}">
+                                        <label>Ngày trả</label>
+                                        <input type="date" class="form-control" id="returnDate"
+                                               placeholder="Nhập ngày trả" th:field="*{returnDate}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Số lượng</label>
+                                        <input type="number" class="form-control" id="price"
+                                               placeholder="Nhập số tiền" th:value="*{}">
+                                    </div>
+                                    <div class="form-group">
+
                                     </div>
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Lưu</button>
+                                    <input type="button" value="Trở lại" class="btn btn-primary"
+                                           onclick="location.href='${pageContext.request.contextPath}/ManageBook'">
                                 </div>
                             </form>
                         </div>

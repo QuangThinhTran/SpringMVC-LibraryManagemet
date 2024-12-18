@@ -39,6 +39,9 @@ public class Book {
     @JoinColumn(name = "type_id", nullable = false)
     private Type type;
 
+    @Transient
+    private Integer typeId;
+
     @Override
     public String toString() {
         return "Book{" +

@@ -1,34 +1,34 @@
 CREATE TABLE library.types (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name NVARCHAR(255) NOT NULL
+    name NVARCHAR(255) NULL
 );
 
 CREATE TABLE library.books (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title NVARCHAR(255) NOT NULL,
+    title NVARCHAR(255) NULL,
     author NVARCHAR(255) NULL,
     description TEXT NULL,
     year_of_publication DATETIME NULL,
-    quantity INT NOT NULL,
-    price DOUBLE NOT NULL,
+    quantity INT NULL,
+    price DOUBLE NULL,
     image VARCHAR(250) NULL,
-    type_id INT NOT NULL,
+    type_id INT NULL,
     FOREIGN KEY (type_id) REFERENCES library.types(id) ON DELETE CASCADE
 );
 
 CREATE TABLE library.roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name NVARCHAR(255) NOT NULL
+    name NVARCHAR(255) NULL
 );
 
 CREATE TABLE library.users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name NVARCHAR(255) NOT NULL,
-    username NVARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    name NVARCHAR(255) NULL,
+    username NVARCHAR(255) NULL,
+    password VARCHAR(255) NULL,
     phone NVARCHAR(50) NULL,
     email NVARCHAR(255) NULL,
-    role_id INT NOT NULL,
+    role_id INT NULL,
     FOREIGN KEY (role_id) REFERENCES library.roles(id) ON DELETE CASCADE
 );
 
@@ -36,19 +36,19 @@ CREATE TABLE library.orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     rental_date DATETIME NULL,
     return_date DATETIME NULL,
-    quantity INT NOT NULL,
-    price DOUBLE NOT NULL,
+    quantity INT NULL,
+    price DOUBLE NULL,
     status NVARCHAR(50) NULL,
-    user_id INT NOT NULL,
+    user_id INT NULL,
     FOREIGN KEY (user_id) REFERENCES library.users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE library.order_detail (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    quantity INT NOT NULL,
-    price DOUBLE NOT NULL,
-    order_id INT NOT NULL,
-    book_id INT NOT NULL,
+    quantity INT NULL,
+    price DOUBLE NULL,
+    order_id INT NULL,
+    book_id INT NULL,
     FOREIGN KEY (order_id) REFERENCES library.orders(id) ON DELETE CASCADE,
     FOREIGN KEY (book_id) REFERENCES library.books(id) ON DELETE CASCADE
 );

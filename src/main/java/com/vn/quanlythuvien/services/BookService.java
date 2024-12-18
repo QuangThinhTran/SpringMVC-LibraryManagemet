@@ -8,6 +8,7 @@ import com.vn.quanlythuvien.requests.book.BookRequest;
 import com.vn.quanlythuvien.services.interfaces.IBookService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,13 +44,14 @@ public class BookService implements IBookService {
         bookRepository.delete(book);
     }
 
-    @Overide
+    @Override
     public List<Book> searchBook(String keyword) {
+        System.out.println("keyword :" + keyword);
         return bookRepository.searchBook(keyword);
     }
 
     private void setUpBook(Book book, BookRequest request, String pathFile) {
-        Type type = typeRepository.getTypeById(request.getTypeId());
+        Type type = typeRepository.findById(request.getTypeId());
 
         book.setTitle(request.getTitle());
         book.setAuthor(request.getAuthor());

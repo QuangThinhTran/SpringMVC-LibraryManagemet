@@ -6,9 +6,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="#" method="get" th:action="@{/customer/search}">
+                        <form action="#" method="get" th:action="@{/book/search}">
                             <div class="card-header">
-                                <h3 class="card-title">Danh sách khách hàng</h3>
+                                <h3 class="card-title">Kết quả tìm kiếm</h3>
                                 <div class="card-tools" style="margin-right: 1px;">
                                     <div class="input-group input-group-sm" style="width: 200px;">
                                         <input type="text" name="keyword" class="form-control float-right"
@@ -22,34 +22,51 @@
                                 </div>
                             </div>
                         </form>
-
+                        <!-- /.card-header -->
                         <div class="card-body">
                             <div class="card-header" style="margin-left: -20px; margin-top: -40px;">
-                                <input type="button" value="Thêm khách hàng" class="btn btn-primary"
-                                       onclick="location.href='/customer/create'">
+                                <input type="button" value="Thêm sách" class="btn btn-primary"
+                                       onclick="location.href='/book/create'">
                             </div>
                             <table class="table table-bordered table-hover" id="example2">
                                 <thead>
                                 <tr>
                                     <th style="width: 10px">STT</th>
-                                    <th style="width: 318px;">Tên khách hàng</th>
-                                    <th>Số điện thoại</th>
-                                    <th>Email</th>
+                                    <th style="width: 318px;">Tiêu đề</th>
+                                    <th>Thể loại</th>
+                                    <th>Tác giả</th>
+                                    <th>Số lượng</th>
+                                    <th>Ngày nhập</th>
+                                    <th>Giá</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Chỉnh sửa</th>
                                     <th>Xóa</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="customer : ${customers}">
-                                    <td th:text="${customer.id}"></td>
-                                    <td th:text="${customer.name}"></td>
-                                    <td th:text="${customer.phone}"></td>
-                                    <td th:text="${customer.email}"></td>
+                                <tr th:each="book : ${books}">
+                                    <td th:text="${book.id}"></td>
+                                    <td th:text="${book.title}"></td>
+                                    <td th:text="${book.type.name}"></td>
+                                    <td th:text="${book.author}"></td>
+                                    <td th:text="${book.quantity}" style="text-align: center;"></td>
+                                    <td th:text="${#dates.format(book.yearOfPublication, 'yyyy-MM-dd')}"></td>
+                                    <td th:text="${book.price}"></td>
+                                    <td style="text-align: center;">
+                                        <img th:src="@{'http://localhost:9000/files/' + ${book.image}}" width="35"
+                                             height="50">
+                                        <figcaption>
+                                            <a th:href="@{'http://localhost:9000/files/' + ${book.image}}"
+                                               style="font-size: 14px;"
+                                               target="_blank">Xem chi tiết</a>
+                                        </figcaption>
+                                    </td>
                                     <td>
-                                        <a th:href="@{/customer/edit/{id}(id=${customer.id})}" class="btn btn-sm btn-info">Chỉnh
+                                        <a th:href="@{/book/edit/{id}(id=${book.id})}" class="btn btn-sm btn-info">Chỉnh
                                             sửa</a>
                                     </td>
                                     <td>
-                                        <form th:action="@{/customer/delete/{id}(id=${customer.id})}" method="post">
+                                        <form th:action="@{/book/delete/{id}(id=${book.id})}" method="post">
                                             <input type="hidden" name="_method" value="delete"/>
                                             <button type="submit" class="btn btn-primary btn-danger">Xóa</button>
                                         </form>

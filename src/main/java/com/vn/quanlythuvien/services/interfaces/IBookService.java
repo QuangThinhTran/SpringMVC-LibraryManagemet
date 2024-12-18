@@ -3,6 +3,8 @@ package com.vn.quanlythuvien.services.interfaces;
 import com.vn.quanlythuvien.models.Book;
 import com.vn.quanlythuvien.requests.book.BookRequest;
 
+import java.util.List;
+
 public interface IBookService {
     void createBook(BookRequest request, String pathFile);
 

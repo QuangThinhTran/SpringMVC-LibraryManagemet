@@ -33,6 +33,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public List<Order> getAllOrdersDesc() {
+        return orderRepository.getAllDesc();
+    }
+
+    @Override
     public Order getOrderById(Integer id) {
         return orderRepository.findById(id).orElse(null);
     }
@@ -60,7 +65,7 @@ public class OrderService implements IOrderService {
 //        order.setStatus(orderRequest.getStatus());
 //        order.setRentalDate(orderRequest.getRentalDate());
 //        order.setReturnDate(orderRequest.getReturnDate());
-        order.setOrderDetails(null);
+//        order.setOrderDetails(null);
         orderRepository.save(order);
     }
 }

@@ -25,10 +25,6 @@ public class OrderDetail {
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
     @Override
     public String toString() {
         return "OrderDetail{" +
@@ -37,7 +33,6 @@ public class OrderDetail {
                 ", price=" + price +
                 ", order=" + (order != null ? order.getId() : null) +
                 ", book=" + (book != null ? book.getId() : null) +
-                ", user=" + (user != null ? user.getId() : null) +
                 '}';
     }
 }
