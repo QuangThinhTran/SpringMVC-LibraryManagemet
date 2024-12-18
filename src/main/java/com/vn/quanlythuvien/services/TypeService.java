@@ -19,7 +19,6 @@ public class TypeService implements ITypeService {
         this.typeRepository = typeRepository;
     }
 
-
     @Override
     public List<Type> getAll() {
         return typeRepository.findAll();
@@ -38,7 +37,8 @@ public class TypeService implements ITypeService {
 
     @Override
     public void deleteType(int id) {
-        typeRepository.deleteById(id);
+        Type type = typeRepository.findById(id);
+        typeRepository.delete(type);
     }
 
     private void setUpType(Type type, String name) {

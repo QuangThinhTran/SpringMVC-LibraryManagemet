@@ -64,7 +64,6 @@ public class BookController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") int id, Model model) {
         Book book = this.bookService.getBookById(id);
-        System.out.println(book);
         model.addAttribute("book", book);
         return "book/edit";
     }
@@ -85,5 +84,13 @@ public class BookController {
     public String delete(@PathVariable("id") int id, Model model) {
         this.bookService.deleteBook(id);
         return "redirect:/book";
+    }
+
+    @GetMapping("/search")
+    public String search(
+            @RequestParam("keyword", required = false) String keyword
+            Model model) {
+        model.addAttribute("books", this.bookService.search(keyword));
+        return "book/index";
     }
 }

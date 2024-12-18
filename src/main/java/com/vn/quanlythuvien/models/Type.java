@@ -26,4 +26,12 @@ public class Type {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    @Overide
+    public String toString() {
+        return "Type{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

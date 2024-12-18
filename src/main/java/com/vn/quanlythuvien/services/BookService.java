@@ -43,6 +43,11 @@ public class BookService implements IBookService {
         bookRepository.delete(book);
     }
 
+    @Overide
+    public List<Book> searchBook(String keyword) {
+        return bookRepository.searchBook(keyword);
+    }
+
     private void setUpBook(Book book, BookRequest request, String pathFile) {
         Type type = typeRepository.getTypeById(request.getTypeId());
 

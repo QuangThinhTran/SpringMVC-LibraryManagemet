@@ -12,7 +12,7 @@ import java.util.Set;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "rental_date")
     private Date rentalDate;
@@ -35,4 +35,17 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", rentalDate=" + rentalDate +
+                ", returnDate=" + returnDate +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", status='" + status + '\'' +
+                ", user=" + (user != null ? user.getId() : null) +
+                '}';
+    }
 }

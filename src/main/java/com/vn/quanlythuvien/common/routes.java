@@ -13,4 +13,5 @@ public class routes {
     public static final String ERROR = "/error";
     public static final String BOOK = "/book";
     public static final String TYPE = "/type";
+    public static final String CUSTOMER = "/customer";
 }

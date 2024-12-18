@@ -10,5 +10,7 @@ public interface IUserService {
 
     void deleteUser(int id);
 
+    List<User> searchUser(String keyword);
+
     User findByUsernameAndPassword(String username, String password);
 }

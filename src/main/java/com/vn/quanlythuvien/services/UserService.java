@@ -22,14 +22,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void updateUser(int id, UserRequest request) {
+    public void updateUser(int id, CustomerRequest request) {
         User user = userRepository.findById(id).orElse(null);
         setUpUser(user, request);
     }
 
     @Override
     public void deleteUser(int id) {
-        userRepository.deleteById(id);
+        User user = userRepository.findById(id).orElse(null);
+        userRepository.delete(user);
     }
 
     @Override
@@ -37,10 +38,13 @@ public class UserService implements IUserService {
         return userRepository.findByUsernameAndPassword(username, password);
     }
 
-    private void setUpUser(User user, UserRequest request) {
-        user.setUsername(request.getUsername());
+    @Overide
+    public List<User> searchUser(String keyword) {
+        return userRepository.searchUser(keyword);
+    }
+
+    private void setUpUser(User user, CustomerRequest request) {
         user.setName(request.getName());
-        user.setPassword(request.getPassword());
         user.setEmail(request.getEmail());
         user.setPhone(request.getPhone());
         userRepository.save(user);

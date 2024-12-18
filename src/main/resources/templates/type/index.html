@@ -6,13 +6,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form role="form" method="post" action="/book/search">
+                        <form role="form" method="post" action="/SearchBook">
                             <div class="card-header">
                                 <h3 class="card-title">Danh sách sách trong thư viện</h3>
                                 <div class="card-tools" style="margin-right: 1px;">
                                     <div class="input-group input-group-sm" style="width: 200px;">
                                         <input type="text" name="data_search" class="form-control float-right"
-                                               placeholder="Tìm kiếm" th:field="*{keyword}">
+                                               placeholder="Tìm kiếm theo tên">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-search"></i>
@@ -22,7 +22,6 @@
                                 </div>
                             </div>
                         </form>
-                        <!-- /.card-header -->
                         <div class="card-body">
                             <div class="card-header" style="margin-left: -20px; margin-top: -40px;">
                                 <input type="button" value="Thêm sách" class="btn btn-primary"
@@ -32,41 +31,20 @@
                                 <thead>
                                 <tr>
                                     <th style="width: 10px">STT</th>
-                                    <th style="width: 318px;">Tiêu đề</th>
-                                    <th>Thể loại</th>
-                                    <th>Tác giả</th>
-                                    <th>Số lượng</th>
-                                    <th>Ngày nhập</th>
-                                    <th>Giá</th>
-                                    <th>Hình ảnh</th>
+                                    <th style="width: 318px;">Tên</th>
                                     <th>Chỉnh sửa</th>
                                     <th>Xóa</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="book : ${books}">
+                                <tr th:each="type : ${types}">
                                     <td th:text="${book.id}"></td>
-                                    <td th:text="${book.title}"></td>
-                                    <td th:text="${book.type.name}"></td>
-                                    <td th:text="${book.author}"></td>
-                                    <td th:text="${book.quantity}" style="text-align: center;"></td>
-                                    <td th:text="${#dates.format(book.yearOfPublication, 'yyyy-MM-dd')}"></td>
-                                    <td th:text="${book.price}"></td>
-                                    <td style="text-align: center;">
-                                        <img th:src="@{'http://localhost:9000/files/' + ${book.image}}" width="35"
-                                             height="50">
-                                        <figcaption>
-                                            <a th:href="@{'http://localhost:9000/files/' + ${book.image}}"
-                                               style="font-size: 14px;"
-                                               target="_blank">Xem chi tiết</a>
-                                        </figcaption>
+                                    <td th:text="${\type.name}"></td>
+                                    <td>
+                                        <a th:href="@{/type/edit/{id}(id=${type.id})}" class="btn btn-sm btn-info">Chỉnh sửa</a>
                                     </td>
                                     <td>
-                                        <a th:href="@{/book/edit/{id}(id=${book.id})}" class="btn btn-sm btn-info">Chỉnh
-                                            sửa</a>
-                                    </td>
-                                    <td>
-                                        <form th:action="@{/book/delete/{id}(id=${book.id})}" method="post">
+                                        <form th:action="@{/type/delete/{id}(id=${type.id})}" method="post">
                                             <input type="hidden" name="_method" value="delete"/>
                                             <button type="submit" class="btn btn-primary btn-danger">Xóa</button>
                                         </form>

@@ -35,7 +35,6 @@ public class TypeController {
             Model model
     ) {
         this.typeService.createType(request);
-        model.addAttribute("message", "Type created successfully");
         return "redirect:/types";
     }
 
@@ -46,27 +45,19 @@ public class TypeController {
         return "type/edit";
     }
 
-    @PostMapping("/update/{id}")
+   @PutMapping("/update/{id}")
     public String update(
             @PathVariable("id") int id,
             @ModelAttribute("type") TypeRequest request,
             Model model
     ) {
         this.typeService.updateType(id, request);
-        model.addAttribute("message", "Type updated successfully");
         return "redirect:/types";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String showDeleteForm(@PathVariable("id") int id, Model model) {
-        model.addAttribute("typeId", id);
-        return "type/delete";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id, Model model) {
         this.typeService.deleteType(id);
-        model.addAttribute("message", "Type deleted successfully");
         return "redirect:/types";
     }
 }

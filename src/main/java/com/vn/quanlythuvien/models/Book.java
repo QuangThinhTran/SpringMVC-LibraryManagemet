@@ -39,7 +39,7 @@ public class Book {
     @JoinColumn(name = "type_id", nullable = false)
     private Type type;
 
-        @Override
+    @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +

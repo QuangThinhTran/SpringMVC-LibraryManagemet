@@ -11,4 +11,6 @@ public interface IBookService {
     void updateBook(int id, BookRequest request, String pathFile);
 
     void deleteBook(int id);
+
+    List<Book> searchBook(String keyword);
 }

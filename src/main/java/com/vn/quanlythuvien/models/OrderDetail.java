@@ -28,4 +28,16 @@ public class OrderDetail {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "id=" + id +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", order=" + (order != null ? order.getId() : null) +
+                ", book=" + (book != null ? book.getId() : null) +
+                ", user=" + (user != null ? user.getId() : null) +
+                '}';
+    }
 }
