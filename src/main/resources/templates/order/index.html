@@ -20,7 +20,6 @@
                                     <th>Ngày thuê</th>
                                     <th>Ngày trả</th>
                                     <th>Số tiền</th>
-                                    <th>Trạng thái</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -31,10 +30,6 @@
                                     <td th:text="${order.rentalDate}"></td>
                                     <td th:text="${order.returnDate}"></td>
                                     <td th:text="${order.price}"></td>
-                                    <td th:if="${order.returnDate != null and order.returnDate <= T(java.time.LocalDate).now()}"
-                                        th:text="'Đã trả'"></td>
-                                    <td th:unless="${order.returnDate != null and order.returnDate <= T(java.time.LocalDate).now()}"
-                                        th:text="'Chưa trả'"></td>
                                 </tr>
                                 </tbody>
                             </table>

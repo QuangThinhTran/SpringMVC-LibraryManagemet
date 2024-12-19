@@ -1,10 +1,13 @@
 package com.vn.quanlythuvien.services;
 
+import com.vn.quanlythuvien.models.Book;
 import com.vn.quanlythuvien.models.Order;
 import com.vn.quanlythuvien.models.User;
+import com.vn.quanlythuvien.repositories.BookRepository;
 import com.vn.quanlythuvien.repositories.OrderRepository;
 import com.vn.quanlythuvien.repositories.UserRepository;
 import com.vn.quanlythuvien.requests.order.OrderRequest;
+import com.vn.quanlythuvien.services.interfaces.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +63,7 @@ public class OrderService implements IOrderService {
     }
 
     private void setUpOrder(Order order, OrderRequest orderRequest) {
-        User user = userRepository.findById(orderRequest.getUserId()).orElse(null);
+        User user = userRepository.findById(orderRequest.getCustomerId()).orElse(null);
         Book book = bookRepository.findById(orderRequest.getBookId()).orElse(null);
         order.setUser(user);
         order.setBook(book);

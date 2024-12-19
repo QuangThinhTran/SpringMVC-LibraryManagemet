@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -31,13 +29,9 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private int customerId;
-
-    @Column(name = "book_id", nullable = false)
-    private int bookId;
-
-//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-//    private List<OrderDetail> orderDetails;
+    @ManyToOne
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
 
     @Override
     public String toString() {
@@ -47,8 +41,8 @@ public class Order {
                 ", returnDate=" + returnDate +
                 ", quantity=" + quantity +
                 ", price=" + price +
-                ", status='" + status + '\'' +
                 ", user=" + (user != null ? user.getId() : null) +
+                ", book=" + (book != null ? book.getId() : null) +
                 '}';
     }
 }

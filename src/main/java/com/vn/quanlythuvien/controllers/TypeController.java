@@ -8,10 +8,11 @@ import com.vn.quanlythuvien.services.interfaces.ITypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequestMapping(routes.TYPE)
@@ -42,7 +43,8 @@ public class TypeController {
 
     @PostMapping("/store")
     public String store(
-            @ModelAttribute("type") @Valid TypeRequest request,
+            @ModelAttribute("type") @javax.validation.Valid TypeRequest request,
+            BindingResult result,
             Model model
     ) {
         if (result.hasErrors()) {
@@ -63,7 +65,8 @@ public class TypeController {
     public String update(
             @PathVariable("id") int id,
             @ModelAttribute("type") @Valid TypeRequest request,
-            Model model
+            Model model,
+            BindingResult result
     ) {
         if (result.hasErrors()) {
             return "type/edit";

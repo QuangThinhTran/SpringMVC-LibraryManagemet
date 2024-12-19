@@ -34,7 +34,7 @@
                                     <div class="form-group">
                                         <label>Sách</label>
                                         <label for="book"></label>
-                                        <select name="book" id="book" class="form-control" th:field="*{bookId}"
+                                        <select name="book" id="book" class="form-control"
                                                 required>
                                             <th:block th:each="book : ${books}">
                                                 <option th:value="${book.id}" th:text="${book.title}"></option>
@@ -44,9 +44,7 @@
                                     <div class="form-group">
                                         <label>Khách hàng</label>
                                         <label for="customer"></label>
-                                        <select name="customer" id="customer" class="form-control"
-                                                th:field="*{customerId}"
-                                                required>
+                                        <select name="customer" id="customer" class="form-control" required>
                                             <th:block th:each="customer : ${customers}">
                                                 <option th:value="${customer.id}" th:text="${customer.name}"></option>
                                             </th:block>
@@ -56,22 +54,24 @@
                                         <label>Ngày trả</label>
                                         <input type="date" class="form-control" id="returnDate"
                                                placeholder="Nhập ngày trả" th:field="*{returnDate}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('returnDate')}" th:errors="*{returnDate}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Số lượng</label>
                                         <input type="number" class="form-control" id="quantity"
-                                               placeholder="Nhập số tiền" th:value="*{quantity}">
+                                               placeholder="Nhập số lượng" th:value="*{quantity}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Số tiền</label>
                                         <input type="number" class="form-control" id="price"
                                                placeholder="Nhập số tiền" th:value="*{price}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+
                                     </div>
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Lưu</button>
-                                    <input type="button" value="Trở lại" class="btn btn-primary"
-                                           onclick="location.href='${pageContext.request.contextPath}/ManageBook'">
                                 </div>
                             </form>
                         </div>

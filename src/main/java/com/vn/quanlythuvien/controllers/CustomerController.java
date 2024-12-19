@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping(routes.CUSTOMER)
@@ -46,6 +46,7 @@ public class CustomerController {
     @PostMapping("/store")
     public String store(
             @ModelAttribute("customer") @Valid CustomerRequest request,
+            BindingResult result,
             Model model
     ) {
         if (result.hasErrors()) {
@@ -69,6 +70,7 @@ public class CustomerController {
     public String update(
             @PathVariable("id") int id,
             @ModelAttribute("customer") @Valid CustomerRequest request,
+            BindingResult result,
             Model model
     ) {
         if (result.hasErrors()) {

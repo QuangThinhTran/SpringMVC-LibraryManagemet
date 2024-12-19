@@ -54,10 +54,10 @@ INSERT INTO library.types (name) VALUES
 ('Thiếu Nhi');
 
 INSERT INTO library.books (title, author, description, year_of_publication, quantity, price, image, type_id) VALUES
-('Truyện Kiều', 'Nguyễn Du', 'Một tác phẩm văn học nổi tiếng', '1820-01-01', 10, 120000, NULL, 1),
-('Vật Lý Đại Cương', 'Nguyễn Văn A', 'Sách giáo khoa cơ bản về vật lý', '2005-06-15', 5, 85000, NULL, 2),
-('Lịch Sử Việt Nam', 'Trần Văn B', 'Khám phá lịch sử Việt Nam từ xưa đến nay', '1998-12-01', 8, 150000, NULL, 3),
-('Đôrêmon - Tập 1', 'Fujiko F. Fujio', 'Truyện tranh thiếu nhi nổi tiếng', '1990-07-20', 20, 45000, NULL, 4);
+('Truyện Kiều', 'Nguyễn Du', 'Một tác phẩm văn học nổi tiếng', '1820-01-01', 10, 120000, "image1.png", 1),
+('Vật Lý Đại Cương', 'Nguyễn Văn A', 'Sách giáo khoa cơ bản về vật lý', '2005-06-15', 5, 85000, "image2.png", 2),
+('Lịch Sử Việt Nam', 'Trần Văn B', 'Khám phá lịch sử Việt Nam từ xưa đến nay', '1998-12-01', 8, 150000, "image3.png", 3),
+('Đôrêmon - Tập 1', 'Fujiko F. Fujio', 'Truyện tranh thiếu nhi nổi tiếng', '1990-07-20', 20, 45000, "image3.png", 4);
 
 INSERT INTO library.users (name, username, password, phone, email, role_id) VALUES
 ('Nguyễn Văn A', 'admin', 'admin123', '0987654321', 'admin@example.com', 1),

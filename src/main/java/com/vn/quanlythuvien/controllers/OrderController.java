@@ -9,9 +9,11 @@ import com.vn.quanlythuvien.repositories.UserRepository;
 import com.vn.quanlythuvien.requests.order.OrderRequest;
 import com.vn.quanlythuvien.services.OrderService;
 import com.vn.quanlythuvien.services.interfaces.ITypeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,16 +46,28 @@ public class OrderController {
     }
 
     @GetMapping("/create")
-    public String createOrderForm(Model model) {
+    public String createOrderForm(
+            Model model
+    ) {
         Role role = roleRepository.findByName("user");
-        model.addAttribute("order", new Order());
+        model.addAttribute("order", new OrderRequest());
         model.addAttribute("customers", userRepository.getUserByRole(role));
         model.addAttribute("books", bookRepository.findAll());
         return "order/create";
     }
 
-    @PostMapping
-    public String createOrder(@ModelAttribute OrderRequest order) {
+    @PostMapping("/store")
+    public String createOrder(
+            @ModelAttribute("order") @Valid OrderRequest order,
+            BindingResult result,
+            Model model
+    ) {
+        if (result.hasErrors()) {
+            Role role = roleRepository.findByName("user");
+            model.addAttribute("customers", userRepository.getUserByRole(role));
+            model.addAttribute("books", bookRepository.findAll());
+            return "order/create";
+        }
         orderService.saveOrder(order);
         return "redirect:" + routes.ORDER;
     }
