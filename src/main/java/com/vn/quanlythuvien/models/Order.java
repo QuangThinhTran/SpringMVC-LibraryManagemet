@@ -16,25 +16,24 @@ public class Order {
     private Integer id;
 
     @Column(name = "rental_date")
-    private Date rentalDate;
+    private Date rentalDate = new Date();
 
     @Column(name = "return_date")
     private Date returnDate;
 
-    @Column(nullable = false)
+    @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    @Column(nullable = false)
+    @Column(name = "price", nullable = false)
     private double price;
-
-    @Column(length = 50)
-    private String status;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     private int customerId;
+
+    @Column(name = "book_id", nullable = false)
     private int bookId;
 
 //    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

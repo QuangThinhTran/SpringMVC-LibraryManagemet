@@ -43,13 +43,6 @@ public class OrderController {
         return "order/index";
     }
 
-    @GetMapping("/{id}")
-    public String getOrder(@PathVariable("id") Integer id, Model model) {
-        Order order = orderService.getOrderById(id);
-        model.addAttribute("order", order);
-        return "order/view";
-    }
-
     @GetMapping("/create")
     public String createOrderForm(Model model) {
         Role role = roleRepository.findByName("user");
@@ -62,12 +55,6 @@ public class OrderController {
     @PostMapping
     public String createOrder(@ModelAttribute OrderRequest order) {
         orderService.saveOrder(order);
-        return "redirect:" + routes.ORDER;
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteOrder(@PathVariable("id") Integer id) {
-        orderService.deleteOrder(id);
         return "redirect:" + routes.ORDER;
     }
 }

@@ -25,9 +25,6 @@
                             <div class="card-header">
                                 <h3 class="card-title">Thêm khách hàng vào thư viện</h3>
                             </div>
-                            <div class="row justify-content-center" style="margin-top: 15px; margin-bottom: -15px;">
-                                <div style="color: red;">${errorString}</div>
-                            </div>
                             <form role="form" method="post" action="/customer/store"
                                   enctype="multipart/form-data" th:object="${customer}">
                                 <div class="card-body">
@@ -35,16 +32,19 @@
                                         <label>Nhập tên khách hàng</label>
                                         <input type="text" class="form-control" id="name"
                                                placeholder="Nhập tên khách hàng" th:field="*{name}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Nhập số điện thoại</label>
                                         <input type="text" class="form-control" id="phone"
                                                placeholder="Nhập số điện thoại" th:field="*{phone}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Nhập email</label>
                                         <input type="text" class="form-control" id="email"
                                                placeholder="Nhập email" th:field="*{email}">
+                                        <div style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                                     </div>
                                 </div>
                                 <div class="card-footer">

@@ -4,9 +4,13 @@ import lombok.Data;
 
 @Data
 public class OrderRequest {
-    private Integer userId;
-    private String address;
-    private String phone;
-    private String email;
-    private String note;
+
+    @NotNull(message = "Số lượng là bắt buộc")
+    private Integer quantity;
+
+    @NotNull(message = "Giá là bắt buộc")
+    private double price;
+
+    @NotNull(message = "Ngày trả sách là bắt buộc")
+    private Date returnDate;
 }

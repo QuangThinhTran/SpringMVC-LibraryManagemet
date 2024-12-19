@@ -55,7 +55,7 @@
                                         <label>Nhập số lượng</label>
                                         <input type="number" class="form-control" id="quantity"
                                                placeholder="Nhập số lượng" th:field="*{quantity}">
-                                        <div style="color: red;" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">1123</div>
+                                        <div style="color: red;" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Nhập giá tiền</label>
@@ -82,7 +82,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div th:if="${errorMessage}" style="color:red;">[[${errorMessage}]]</div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                     <input type="button" value="Trở lại" class="btn btn-primary"

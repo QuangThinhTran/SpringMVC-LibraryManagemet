@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping(routes.TYPE)
@@ -39,9 +42,12 @@ public class TypeController {
 
     @PostMapping("/store")
     public String store(
-            @ModelAttribute("type") TypeRequest request,
+            @ModelAttribute("type") @Valid TypeRequest request,
             Model model
     ) {
+        if (result.hasErrors()) {
+            return "type/create";
+        }
         this.typeService.createType(request);
         return "redirect:/type";
     }
@@ -56,9 +62,12 @@ public class TypeController {
     @PostMapping("/update/{id}")
     public String update(
             @PathVariable("id") int id,
-            @ModelAttribute("type") TypeRequest request,
+            @ModelAttribute("type") @Valid TypeRequest request,
             Model model
     ) {
+        if (result.hasErrors()) {
+            return "type/edit";
+        }
         this.typeService.updateType(id, request);
         return "redirect:/type";
     }

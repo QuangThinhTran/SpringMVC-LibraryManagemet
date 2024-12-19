@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping(routes.CUSTOMER)
@@ -42,9 +45,12 @@ public class CustomerController {
 
     @PostMapping("/store")
     public String store(
-            @ModelAttribute("customer") CustomerRequest request,
+            @ModelAttribute("customer") @Valid CustomerRequest request,
             Model model
     ) {
+        if (result.hasErrors()) {
+            return "customer/create";
+        }
         this.userService.createUser(request);
         return "redirect:" + routes.CUSTOMER;
     }
@@ -62,9 +68,12 @@ public class CustomerController {
     @PostMapping("/update/{id}")
     public String update(
             @PathVariable("id") int id,
-            @ModelAttribute("customer") CustomerRequest request,
+            @ModelAttribute("customer") @Valid CustomerRequest request,
             Model model
     ) {
+        if (result.hasErrors()) {
+            return "customer/edit";
+        }
         this.userService.updateUser(id, request);
         return "redirect:" + routes.CUSTOMER;
     }

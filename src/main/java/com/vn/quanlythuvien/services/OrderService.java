@@ -5,7 +5,6 @@ import com.vn.quanlythuvien.models.User;
 import com.vn.quanlythuvien.repositories.OrderRepository;
 import com.vn.quanlythuvien.repositories.UserRepository;
 import com.vn.quanlythuvien.requests.order.OrderRequest;
-import com.vn.quanlythuvien.services.interfaces.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +14,18 @@ import java.util.List;
 public class OrderService implements IOrderService {
 
     private final OrderRepository orderRepository;
-    private final OrderDetailService orderDetailService;
     private final UserRepository userRepository;
+    private final BookRepository bookRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, OrderDetailService orderDetailService,
-                        UserRepository userRepository
+    public OrderService(
+            OrderRepository orderRepository,
+            UserRepository userRepository,
+            BookRepository bookRepository
     ) {
         this.orderRepository = orderRepository;
-        this.orderDetailService = orderDetailService;
         this.userRepository = userRepository;
+        this.bookRepository = bookRepository;
     }
 
     @Override
@@ -60,12 +61,11 @@ public class OrderService implements IOrderService {
 
     private void setUpOrder(Order order, OrderRequest orderRequest) {
         User user = userRepository.findById(orderRequest.getUserId()).orElse(null);
+        Book book = bookRepository.findById(orderRequest.getBookId()).orElse(null);
         order.setUser(user);
-//        order.setTotal(orderRequest.getTotal());
-//        order.setStatus(orderRequest.getStatus());
-//        order.setRentalDate(orderRequest.getRentalDate());
-//        order.setReturnDate(orderRequest.getReturnDate());
-//        order.setOrderDetails(null);
+        order.setBook(book);
+        order.setPrice(orderRequest.getPrice());
+        order.setReturnDate(orderRequest.getReturnDate());
         orderRepository.save(order);
     }
 }

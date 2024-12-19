@@ -60,6 +60,7 @@ public class BookController {
             Model model
     ) throws IOException {
         if (result.hasErrors()) {
+            model.addAttribute("types", this.typeRepository.findAll());
             return "book/create";
         }
 
@@ -80,11 +81,12 @@ public class BookController {
     @PostMapping("/update/{id}")
     public String update(
             @PathVariable("id") int id,
-            @Valid @ModelAttribute("book") BookRequest request,
+            @ModelAttribute("book") @Valid BookRequest request,
             BindingResult result,
             Model model
     ) throws IOException {
         if (result.hasErrors()) {
+            model.addAttribute("types", this.typeRepository.findAll());
             return "book/edit";
         }
 
