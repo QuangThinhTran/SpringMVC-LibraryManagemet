@@ -25,7 +25,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Thêm sách vào thư viện</h3>
                             </div>
-                            <form role="form" method="post" action="/book/store"
+                            <form role="form" method="post" th:action="@{/book/store}"
                                   enctype="multipart/form-data" th:object="${book}">
                                 <div class="card-body">
                                     <div class="form-group">

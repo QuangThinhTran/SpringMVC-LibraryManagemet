@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Data
 public class CustomerRequest {
+    private Integer id;
     @NotBlank(message = "Tên là bắt buộc")
     private String name;
 

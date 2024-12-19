@@ -25,7 +25,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Thêm khách hàng vào thư viện</h3>
                             </div>
-                            <form role="form" method="post" action="/customer/store"
+                            <form role="form" method="post" th:action="@{/customer/store}"
                                   enctype="multipart/form-data" th:object="${customer}">
                                 <div class="card-body">
                                     <div class="form-group">

@@ -25,18 +25,15 @@
                             <div class="card-header">
                                 <h3 class="card-title">Thuê sách</h3>
                             </div>
-                            <div class="row justify-content-center" style="margin-top: 15px; margin-bottom: -15px;">
-                                <div style="color: red;">${errorString}</div>
-                            </div>
-                            <form role="form" method="post" action="/order/store"
+                            <form role="form" method="post" th:action="@{/order/store}"
                                   enctype="multipart/form-data" th:object="${order}">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Sách</label>
                                         <label for="book"></label>
                                         <select name="book" id="book" class="form-control"
-                                                required>
-                                            <th:block th:each="book : ${books}">
+                                                required th:field="*{bookId}">
+                                            <th:block th:each="book : ${books}" >
                                                 <option th:value="${book.id}" th:text="${book.title}"></option>
                                             </th:block>
                                         </select>
@@ -44,7 +41,7 @@
                                     <div class="form-group">
                                         <label>Khách hàng</label>
                                         <label for="customer"></label>
-                                        <select name="customer" id="customer" class="form-control" required>
+                                        <select name="customer" id="customer" class="form-control" required th:field="*{customerId}">
                                             <th:block th:each="customer : ${customers}">
                                                 <option th:value="${customer.id}" th:text="${customer.name}"></option>
                                             </th:block>
@@ -59,13 +56,13 @@
                                     <div class="form-group">
                                         <label>Số lượng</label>
                                         <input type="number" class="form-control" id="quantity"
-                                               placeholder="Nhập số lượng" th:value="*{quantity}">
+                                               placeholder="Nhập số lượng" th:field="*{quantity}">
                                         <div style="color: red;" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Số tiền</label>
                                         <input type="number" class="form-control" id="price"
-                                               placeholder="Nhập số tiền" th:value="*{price}">
+                                               placeholder="Nhập số tiền" th:field="*{price}">
                                         <div style="color: red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
 
                                     </div>

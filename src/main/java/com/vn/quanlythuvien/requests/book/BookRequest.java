@@ -10,6 +10,8 @@ import java.util.Date;
 
 @Data
 public class BookRequest {
+    private Integer id;
+
     @NotBlank(message = "Tiêu đề là bắt buộc")
     private String title;
 

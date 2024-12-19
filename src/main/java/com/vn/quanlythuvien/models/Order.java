@@ -19,10 +19,10 @@ public class Order {
     @Column(name = "return_date")
     private Date returnDate;
 
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
+    @Column(name = "quantity")
+    private Integer quantity;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price")
     private double price;
 
     @ManyToOne

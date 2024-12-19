@@ -63,11 +63,13 @@ public class OrderService implements IOrderService {
     }
 
     private void setUpOrder(Order order, OrderRequest orderRequest) {
+        System.out.println(orderRequest);
         User user = userRepository.findById(orderRequest.getCustomerId()).orElse(null);
         Book book = bookRepository.findById(orderRequest.getBookId()).orElse(null);
         order.setUser(user);
         order.setBook(book);
         order.setPrice(orderRequest.getPrice());
+        order.setQuantity(orderRequest.getQuantity());
         order.setReturnDate(orderRequest.getReturnDate());
         orderRepository.save(order);
     }

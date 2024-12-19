@@ -25,7 +25,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Thêm thể loại</h3>
                             </div>
-                            <form role="form" method="post" action="/type/store"
+                            <form role="form" method="post" th:action="@{/type/store}"
                                   enctype="multipart/form-data" th:object="${type}">
                                 <div class="card-body">
                                     <div class="form-group">
