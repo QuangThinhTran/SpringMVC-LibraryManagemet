@@ -11,9 +11,9 @@ public class OrderRequest {
     @NotNull(message = "Giá là bắt buộc")
     private double price;
 
-    @NotNull(message = "Ngày trả sách là bắt buộc")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date returnDate;
+//    @NotNull(message = "Ngày trả sách là bắt buộc")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private Date returnDate;
 
     @NotNull(message = "Số lượng là bắt buộc")
     private Integer quantity;

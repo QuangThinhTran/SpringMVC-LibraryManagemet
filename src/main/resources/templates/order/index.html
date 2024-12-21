@@ -8,7 +8,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-header" style="margin-left: -20px; margin-top: -40px;">
-                                <input type="button" value="Thuê sách" class="btn btn-primary"
+                                <input type="button" value="Thanh toán" class="btn btn-primary"
                                        onclick="location.href='/order/create'">
                             </div>
                             <table class="table table-bordered table-hover" id="example2">
@@ -17,8 +17,8 @@
                                     <th style="width: 10px">STT</th>
                                     <th style="width: 318px;">Tên khách hàng</th>
                                     <th>Sách</th>
-                                    <th>Ngày thuê</th>
-                                    <th>Ngày trả</th>
+                                    <th>Thời gian</th>
+<!--                                    <th>Ngày trả</th>-->
                                     <th>Số tiền</th>
                                 </tr>
                                 </thead>
@@ -28,7 +28,7 @@
                                     <td th:text="${order.user.name}"></td>
                                     <td th:text="${order.book.title}"></td>
                                     <td th:text="${#dates.format(order.rentalDate, 'dd/MM/yyyy')}"></td>
-                                    <td th:text="${#dates.format(order.returnDate, 'dd/MM/yyyy')}"></td>
+<!--                                    <td th:text="${#dates.format(order.returnDate, 'dd/MM/yyyy')}"></td>-->
                                     <td th:text="${order.price}"></td>
                                 </tr>
                                 </tbody>

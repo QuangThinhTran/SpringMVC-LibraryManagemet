@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head th:insert="~{header}">
-    <title> Quản lý thư viện</title>
+    <title> Quản lý nhà sách</title>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -19,7 +19,7 @@
         <a href="#" class="brand-link">
             <img th:src="@{/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">Quản lý thư viện</span>
+            <span class="brand-text font-weight-light">Quản lý nhà sách</span>
         </a>
 
         <div class="sidebar">
@@ -79,26 +79,26 @@
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-book"></i>
                             <p>
-                                Quản lý mượn sách<i class="right fas fa-angle-left"></i>
+                                Quản lý bán sách<i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="/customer" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm người mượn sách</p>
+                                    <p>Thêm khách hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/order/create" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Thuê sách</p>
+                                    <p>Thanh toán</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/order" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Lịch sử mượn sách</p>
+                                    <p>Lịch sử hóa đơn</p>
                                 </a>
                             </li>
                         </ul>
